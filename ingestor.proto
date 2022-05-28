@@ -1,0 +1,28 @@
+syntax = "proto3";
+package proto;
+
+option go_package = "github.com/audi-skripsi/pkg/proto";
+
+message PingRequest {
+    string message = 1;
+}
+
+message PingResponse {
+    string message = 1;
+}
+
+message EventLogRequest {
+    string level = 1;
+    string app_name = 2;
+    string data = 3;
+    int64 timestamp = 4;
+}
+
+message EventLogResponse {
+    int64 total_received = 1;
+}
+
+service IngestorService {
+    rpc Ping(PingRequest) returns (PingResponse);
+    rpc SendEventLog(stream EventLogRequest) returns (EventLogResponse);
+}
