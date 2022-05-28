@@ -16,10 +16,5 @@ Scenario III
 - iterations 10000, break 15 seconds in the middle
 
 Scenario IV
-- grpc
-- vus 10
-- iterations 10000, break 15 seconds in the middle
-
-Scenario V
 - batch http
 
