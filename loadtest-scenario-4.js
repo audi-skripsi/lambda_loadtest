@@ -1,9 +1,9 @@
-import grpc from "k6/net/grpc";
+import http from "k6/http";
 
 const serviceNames = [
-  "scenario 2 service 1",
-  "scenario 2 service-2",
-  "scenario 2 service_3",
+  "scenario 4 service 1",
+  "scenario 4 service-2",
+  "scenario 4 service_3",
 ];
 const levels = ["info", "error"];
 const errorMessages = [
@@ -24,17 +24,10 @@ const infoMessages = [
 
 export const options = {
   vus: 10,
-  iterations: 5000,
+  iterations: 10000,
 };
 
-const client = new grpc.Client();
-client.load(["."], "ingestor.proto");
-
 export default function () {
-  client.connect("skripsi.audipasuatmadi.com:30010", {
-    plaintext: true,
-  });
-
   const level = levels[Math.floor(Math.random() * levels.length)];
   let msg;
   if (level == "info") {
@@ -43,12 +36,12 @@ export default function () {
     msg = errorMessages[Math.floor(Math.random() * errorMessages.length)];
   }
 
-  const data = {
-    level: level,
-    app_name: serviceNames[Math.floor(Math.random() * serviceNames.length)],
-    data: msg,
-  };
-
-  client.invoke("proto.IngestorService/SendEventLog", data);
-  client.close();
+  http.post(
+    "http://skripsi.audipasuatmadi.com/v1/ingest",
+    JSON.stringify({
+      level: level,
+      app_name: serviceNames[Math.floor(Math.random() * serviceNames.length)],
+      data: msg,
+    })
+  );
 }

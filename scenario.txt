@@ -13,8 +13,13 @@ Scenario II
 Scenario III
 - http
 - vus 10
-- iterations 10000, break 15 seconds in the middle
+- iterations 10000, with turned off service in the start
 
 Scenario IV
 - batch http
 
+
+# notes
+to check collection count script:
+use audi_skripsi_lambda
+db.getCollectionNames().map(k => db[k].count()).reduce((p, k) => p + k, 0)
