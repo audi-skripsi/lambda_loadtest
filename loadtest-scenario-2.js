@@ -31,7 +31,7 @@ const client = new grpc.Client();
 client.load(["."], "ingestor.proto");
 
 export default function () {
-  client.connect("skripsi.audipasuatmadi.com:30010", {
+  client.connect("localhost:7001", {
     plaintext: true,
   });
 

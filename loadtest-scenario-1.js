@@ -37,7 +37,7 @@ export default function () {
   }
 
   http.post(
-    "http://skripsi.audipasuatmadi.com/v1/ingest",
+    "http://localhost:8001/v1/ingest",
     JSON.stringify({
       level: level,
       app_name: serviceNames[Math.floor(Math.random() * serviceNames.length)],
